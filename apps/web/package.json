@@ -1,0 +1,46 @@
+{
+  "name": "@frontdesk/web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
+    "@frontdesk/core": "*",
+    "@frontdesk/db": "*",
+    "@sentry/nextjs": "^11.9.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
+    "@upstash/ratelimit": "^2.2.0",
+    "@upstash/redis": "^1.40.0",
+    "clsx": "^2.1.1",
+    "groq-sdk": "^1.6.0",
+    "inngest": "^4.26.0",
+    "langfuse": "^3.39.0",
+    "lucide-react": "^0.577.0",
+    "next": "15.5.28",
+    "react": "19.1.10",
+    "react-dom": "19.1.10",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.3.0",
+    "unpdf": "^1.9.1",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@frontdesk/widget": "*",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "pg": "^8.16.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Green Leaf Clinic · Kothrud, Pune</title>
+    <!--
+      A pretend clinic website, to check the FrontDesk widget works on a site
+      that isn't our app (different origin, its own CSS, its own fonts).
+
+      Run it on a second port so the browser treats it as another website:
+        npx serve examples/clinic-site -l 5500
+      then open http://localhost:5500/?business=<your-slug>
+
+      On a real website, the owner pastes only the script tag from
+      Dashboard → Channels, e.g.:
+        <script src="http://localhost:3000/widget.js" data-business-id="your-slug" defer></script>
+    -->
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Georgia, "Times New Roman", serif; color: #1d2b22; background: #f4f1ea; line-height: 1.6; }
+      /* Deliberately aggressive host styles: the widget must not inherit these. */
+      button { background: hotpink !important; font-size: 22px; }
+      p, div { letter-spacing: 0.04em; }
+      header { background: #234d33; color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; }
+      header strong { font-size: 20px; }
+      nav a { color: #d6eadc; margin-left: 18px; text-decoration: none; }
+      .hero { max-width: 880px; margin: 0 auto; padding: 64px 24px 32px; }
+      .hero h1 { font-size: 42px; line-height: 1.15; margin: 0 0 12px; }
+      .grid { max-width: 880px; margin: 0 auto; padding: 0 24px 80px; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      .card { background: #fff; border-radius: 6px; padding: 20px; border: 1px solid #ddd5c4; }
+      .card h3 { margin: 0 0 6px; }
+      .note { max-width: 880px; margin: 0 auto 24px; padding: 12px 24px; font: 14px/1.5 system-ui, sans-serif; color: #6b5b3a; }
+      code { background: #fff3d6; padding: 1px 5px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>🌿 Green Leaf Clinic</strong>
+      <nav><a href="#">Doctors</a><a href="#">Services</a><a href="#">Contact</a></nav>
+    </header>
+    <section class="hero">
+      <h1>Family care in Kothrud, since 2009</h1>
+      <p>General medicine, chest &amp; asthma care, physiotherapy. Book online in seconds, or ask our receptionist anything.</p>
+      <button type="button" onclick="window.FrontDesk && window.FrontDesk.ask('Kal appointment chahiye')">Book an appointment</button>
+    </section>
+    <section class="grid">
+      <div class="card"><h3>OPD timings</h3><p>Mon–Sat, 9 am – 1:30 pm and 5 – 9 pm.</p></div>
+      <div class="card"><h3>Our doctors</h3><p>Experienced physicians and a pulmonologist.</p></div>
+      <div class="card"><h3>Find us</h3><p>Karve Road, near the metro station.</p></div>
+    </section>
+    <p class="note" id="note"></p>
+
+    <script>
+      // Loads the widget for ?business=<slug> (default: the demo clinic) from ?api= (default: localhost:3000).
+      (function () {
+        var params = new URLSearchParams(location.search);
+        var business = params.get("business") || "sunrise-clinic";
+        var api = (params.get("api") || "http://localhost:3000").replace(/\/$/, "");
+        // Calls made before the widget loads are queued (see apps/widget/src/main.tsx).
+        window.FrontDesk = window.FrontDesk || { _queue: [], open: function () { this._queue.push(["open"]); }, ask: function (t) { this._queue.push(["ask", t]); } };
+        var s = document.createElement("script");
+        s.src = api + "/widget.js";
+        s.defer = true;
+        s.dataset.businessId = business;
+        s.onerror = function () {
+          document.getElementById("note").innerHTML = "Couldn't load <code>" + s.src + "</code>. Is <code>npm run dev</code> running?";
+        };
+        document.body.appendChild(s);
+        document.getElementById("note").innerHTML =
+          "Widget for <code>" + business + "</code> from <code>" + api + "</code>. Change it with <code>?business=your-slug</code>.";
+      })();
+    </script>
+  </body>
+</html>
