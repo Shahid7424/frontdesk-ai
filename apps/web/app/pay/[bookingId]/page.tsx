@@ -1,6 +1,7 @@
 import { formatRupees } from "@frontdesk/core";
 import { slotLabel } from "@frontdesk/core/agent";
 import type { Metadata } from "next";
+import { LogoMark } from "@/components/ui/logo";
 import { isSupabaseConfigured } from "@/lib/env";
 import { demoClinic } from "@/lib/mock/demo-clinic";
 import { isRazorpayConfigured } from "@/lib/payments/razorpay";
@@ -31,7 +32,7 @@ export default async function PayPage({
   const state = live ? await loadState(bookingId, query.razorpay_payment_link_status === "paid") : demoState(query);
 
   return (
-    <main className="grid min-h-dvh place-items-center bg-slate-100 px-4 py-10">
+    <main className="grid min-h-dvh place-items-center bg-canvas bg-[radial-gradient(60%_45%_at_50%_0%,var(--color-brand-100),transparent)] px-4 py-10">
       <div className="w-full max-w-sm">
         {state.kind === "test" && (
           <p className="mb-3 text-center text-xs font-medium tracking-wide text-amber-700 uppercase">Test mode · no real money moves</p>
@@ -39,6 +40,9 @@ export default async function PayPage({
         <div className="rounded-3xl bg-white p-7 shadow-lift ring-1 ring-black/5">
           <PayCard state={state} bookingId={bookingId} />
         </div>
+        <p className="mt-5 flex items-center justify-center gap-2 text-xs text-slate-500">
+          <LogoMark className="size-5 rounded-md" /> Secure booking by <span className="font-semibold text-ink">Swagat AI</span>
+        </p>
       </div>
     </main>
   );

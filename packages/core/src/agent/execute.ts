@@ -99,7 +99,7 @@ export async function executeTool(
     const notes: Record<CancelOutcome["status"], string> = {
       cancelled:
         result.status === "cancelled" && result.paid
-          ? "Cancelled. They had paid an advance: the clinic's team will contact them about the refund. Don't promise a refund amount or timeline."
+          ? "Cancelled. They had paid an advance: the team will contact them about the refund. Don't promise a refund amount or timeline."
           : "Cancelled. Confirm it in one short line and offer to book another time.",
       none: "Nothing to cancel was found. If they booked from another phone, call handoff_to_human.",
       too_late: "It's too close to (or past) the appointment time to cancel here. Call handoff_to_human so the team can help.",

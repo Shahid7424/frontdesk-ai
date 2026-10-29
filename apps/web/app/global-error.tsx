@@ -15,7 +15,7 @@ export default function GlobalError({ error, reset }: { error: Error & { digest?
         <div style={{ textAlign: "center", padding: 24 }}>
           <h1 style={{ fontSize: 20, margin: 0 }}>Something went wrong</h1>
           <p style={{ color: "#64748b" }}>We've been notified. Please try again.</p>
-          <button onClick={reset} style={{ marginTop: 12, padding: "10px 18px", borderRadius: 12, border: 0, background: "#0f766e", color: "white", fontWeight: 600, cursor: "pointer" }}>
+          <button onClick={reset} style={{ marginTop: 12, padding: "10px 18px", borderRadius: 12, border: 0, background: "#5a2bd4", color: "white", fontWeight: 600, cursor: "pointer" }}>
             Try again
           </button>
         </div>

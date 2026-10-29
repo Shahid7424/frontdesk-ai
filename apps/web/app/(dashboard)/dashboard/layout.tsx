@@ -5,7 +5,7 @@ import { getBusinessContext } from "@/lib/data/business";
 import { countNeedsYou } from "@/lib/data/dashboard";
 
 export const metadata: Metadata = {
-  title: { default: "Dashboard", template: "%s · FrontDesk AI" },
+  title: { default: "Dashboard", template: "%s · Swagat AI" },
   robots: { index: false },
 };
 

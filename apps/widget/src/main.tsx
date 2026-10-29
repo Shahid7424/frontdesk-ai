@@ -1,10 +1,11 @@
 /**
  * Embed:
- *   <script src="https://app.frontdesk.ai/widget.js" data-business-id="sunrise-clinic" defer></script>
+ *   <script src="https://swagat-ai.vercel.app/widget.js" data-business-id="sunrise-clinic" defer></script>
  *
  * Optional attributes: data-api (API origin, defaults to the script's
  * origin), data-position="left", data-open="true".
- * Host pages can call window.FrontDesk.open() / .ask("text").
+ * Host pages can call window.SwagatAI.open() / .ask("text"). The older
+ * window.FrontDesk name keeps working for sites that already use it.
  */
 import type { WidgetConfig } from "@frontdesk/core";
 import { render } from "preact";
@@ -15,6 +16,7 @@ type HostApi = { open: () => void; close: () => void; ask: (text: string) => voi
 
 declare global {
   interface Window {
+    SwagatAI?: HostApi & { _queue?: Array<[keyof HostApi, string?]> };
     FrontDesk?: HostApi & { _queue?: Array<[keyof HostApi, string?]> };
     __frontdeskLoaded?: boolean;
   }
@@ -23,7 +25,7 @@ declare global {
 async function boot(script: HTMLScriptElement) {
   const businessId = script.dataset.businessId;
   if (!businessId) {
-    console.warn("[FrontDesk] Missing data-business-id on the widget script tag.");
+    console.warn("[Swagat AI] Missing data-business-id on the widget script tag.");
     return;
   }
   const apiBase = (script.dataset.api ?? new URL(script.src).origin).replace(/\/$/, "");
@@ -35,7 +37,7 @@ async function boot(script: HTMLScriptElement) {
     config = (await res.json()) as WidgetConfig;
   } catch (err) {
     // Fail closed and quietly: a broken widget must never break the host site.
-    console.warn("[FrontDesk] Could not load widget config.", err);
+    console.warn("[Swagat AI] Could not load widget config.", err);
     return;
   }
 
@@ -50,7 +52,7 @@ async function boot(script: HTMLScriptElement) {
   shadow.appendChild(mount);
 
   // Calls made before the widget finished loading are queued, then replayed.
-  const queued = window.FrontDesk?._queue ?? [];
+  const queued = [...(window.FrontDesk?._queue ?? []), ...(window.SwagatAI?._queue ?? [])];
 
   render(
     <App
@@ -59,6 +61,7 @@ async function boot(script: HTMLScriptElement) {
       position={script.dataset.position === "left" ? "left" : "right"}
       startOpen={script.dataset.open === "true"}
       register={(api) => {
+        window.SwagatAI = api;
         window.FrontDesk = api;
         for (const [method, arg] of queued.splice(0)) api[method](arg ?? "");
       }}

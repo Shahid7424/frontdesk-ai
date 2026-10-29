@@ -14,7 +14,7 @@ export const demoClinic = {
   area: "Baner, Pune",
   address: "2nd floor, Sai Plaza, Baner Road, near Balewadi Phata, Pune 411045",
   phone: "+91 98XXX XXX21",
-  accentColor: "#0f766e",
+  accentColor: "#5a2bd4",
   hours: [
     { days: "Mon to Sat", time: "9:00 AM – 1:30 PM, 5:00 PM – 9:00 PM" },
     { days: "Sunday", time: "10:00 AM – 1:00 PM (only Dr. Mehta)" },

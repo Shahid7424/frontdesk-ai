@@ -263,7 +263,9 @@ function Panel({
             Privacy
           </a>
         </span>
-        <span class="brand">⚡ FrontDesk AI</span>
+        <a class="brand" href="https://swagat-ai.vercel.app" target="_blank" rel="noreferrer">
+          <span class="brand-mark" aria-hidden="true" /> Powered by <b>Swagat AI</b>
+        </a>
       </div>
     </section>
   );

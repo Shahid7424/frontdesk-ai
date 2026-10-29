@@ -15,6 +15,12 @@ export interface BusinessKnowledge {
   phone: string | null;
   staff: Array<{ id: string; name: string; title: string | null }>;
   services: Array<{ id: string; name: string; durationMin: number; pricePaise: number; staffIds: string[] }>;
+  /**
+   * How bookings are paid, so the AI can answer "advance or later?" itself.
+   * "advance_online": paid services are paid online when booking.
+   * "pay_at_visit": no advance, the customer pays the business directly.
+   */
+  paymentPolicy?: "advance_online" | "pay_at_visit";
   /** Weekly hours. staffId null = whole business. weekday 0 = Sunday. Times are "HH:MM" IST. */
   hours: Array<{ weekday: number; start: string; end: string; staffId: string | null }>;
 }

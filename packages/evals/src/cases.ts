@@ -93,6 +93,13 @@ export const CASES: EvalCase[] = [
     expect: { payment: true, none: [/https?:\/\/|www\.|\w\.(link|com|in|me)\//i] },
   },
   {
+    // Live test: "can I pay upfront or after the meeting?" was handed off instead of answered.
+    id: "pay-when",
+    category: "booking",
+    turns: ["Payment pehle karna hoga ya appointment ke baad?"],
+    expect: { handoff: false, any: [/advance/i, /online/i, /pehle/i, /UPI/i] },
+  },
+  {
     id: "cancel-asks-first",
     category: "booking",
     turns: ["Kal general consultation ke liye slot chahiye", { tap: "first_slot" }, "Mujhe ye booking cancel karni hai"],

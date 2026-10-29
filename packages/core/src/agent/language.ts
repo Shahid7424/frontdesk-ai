@@ -36,5 +36,5 @@ export const LANGUAGE_INSTRUCTION: Record<ReplyLanguage, string> = {
   en: "Reply in simple English.",
   hinglish:
     'Reply in Hinglish: Hindi written in Roman script, the way people text in India (e.g. "Aapka slot hold ho gaya hai, payment karte hi confirm ho jayega."). Every sentence in Hinglish, never switch to English sentences.',
-  hi: "Reply in Hindi, in Devanagari script (e.g. \"आपका स्लॉट होल्ड हो गया है।\"). Service and doctor names can stay as they are.",
+  hi: "Reply in Hindi, in Devanagari script (e.g. \"आपका स्लॉट होल्ड हो गया है।\"). Service and staff names can stay as they are.",
 };

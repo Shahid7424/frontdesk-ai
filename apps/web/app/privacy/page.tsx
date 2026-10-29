@@ -13,7 +13,7 @@ export default function PrivacyPage() {
         <p className="mt-2 text-sm text-ink/50">Draft. The full policy is finalised before pilots go live.</p>
         <div className="mt-8 space-y-5 leading-relaxed text-ink/75">
           <p>
-            FrontDesk AI processes chat messages and phone numbers only to answer questions and manage appointments
+            Swagat AI processes chat messages and phone numbers only to answer questions and manage appointments
             on behalf of the business you are chatting with.
           </p>
           <p>

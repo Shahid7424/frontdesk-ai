@@ -128,10 +128,10 @@ const escape = (s: string) => s.replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0
 async function deliver({ to, subject, lines, link }: Email & { to: string }) {
   const origin = (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000").trim().replace(/\/$/, "");
   const url = `${origin}${link.path}`;
-  const text = [...lines, "", `${link.label}: ${url}`, "", "FrontDesk AI"].join("\n");
+  const text = [...lines, "", `${link.label}: ${url}`, "", "Swagat AI"].join("\n");
   const html = `<div style="font-family:system-ui,sans-serif;font-size:15px;line-height:1.5;color:#0f172a">${lines
     .map((l) => `<p style="margin:0 0 10px">${escape(l)}</p>`)
-    .join("")}<p style="margin:18px 0"><a href="${escape(url)}" style="background:#0f766e;color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:600">${escape(link.label)}</a></p><p style="color:#64748b;font-size:12px">FrontDesk AI · You get this because you own this business. Change alerts in Settings.</p></div>`;
+    .join("")}<p style="margin:18px 0"><a href="${escape(url)}" style="background:#5a2bd4;color:#fff;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:600">${escape(link.label)}</a></p><p style="color:#64748b;font-size:12px">Swagat AI · You get this because you own this business. Change alerts in Settings.</p></div>`;
 
   const key = process.env.RESEND_API_KEY?.trim();
   if (!key) {
@@ -141,7 +141,7 @@ async function deliver({ to, subject, lines, link }: Email & { to: string }) {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from: process.env.ALERTS_FROM?.trim() || "FrontDesk AI <onboarding@resend.dev>", to: [to], subject, text, html }),
+    body: JSON.stringify({ from: process.env.ALERTS_FROM?.trim() || "Swagat AI <onboarding@resend.dev>", to: [to], subject, text, html }),
     signal: AbortSignal.timeout(10_000),
   });
   if (!res.ok) throw new Error(`Resend refused the alert (${res.status}): ${(await res.text().catch(() => "")).slice(0, 200)}`);

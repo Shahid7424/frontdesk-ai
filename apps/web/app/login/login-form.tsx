@@ -12,7 +12,7 @@ export function LoginForm({ configured, next, error }: { configured: boolean; ne
 
   if (!configured) {
     return (
-      <div className="mt-8 space-y-4">
+      <div className="mt-7 space-y-4">
         <ButtonLink href="/dashboard" size="lg" className="w-full">
           Open demo dashboard <ArrowRight className="size-4" />
         </ButtonLink>
@@ -40,7 +40,7 @@ export function LoginForm({ configured, next, error }: { configured: boolean; ne
 
   return (
     <form
-      className="mt-8 space-y-4"
+      className="mt-7 space-y-4"
       onSubmit={async (e) => {
         e.preventDefault();
         setState("sending");
@@ -66,7 +66,7 @@ export function LoginForm({ configured, next, error }: { configured: boolean; ne
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@clinic.in"
+          placeholder="you@business.in"
           className="mt-1.5 h-11 w-full rounded-xl border border-black/10 bg-white px-3.5 text-[15px] outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100"
         />
       </label>

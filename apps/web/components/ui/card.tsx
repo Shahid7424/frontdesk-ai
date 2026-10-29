@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 export function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("rounded-2xl bg-white shadow-soft ring-1 ring-black/[0.06]", className)}
+      className={cn("rounded-[20px] bg-white shadow-soft ring-1 ring-black/[0.06]", className)}
       {...props}
     />
   );

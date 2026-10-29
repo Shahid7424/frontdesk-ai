@@ -38,6 +38,7 @@ const GOOD: Record<string, Partial<Reply>> = {
   "book-tomorrow": { text: "Kal ke slots neeche hain, jo time theek lage us par tap kijiye.", slots: 6 },
   "book-two-step": { text: "Parso ke slots ye rahe, tap kijiye.", slots: 6 },
   "book-and-pay": { text: "Aapka slot hold par hai, payment card dobara bhej diya hai.", payment: true },
+  "pay-when": { text: "Paid services ka poora payment booking ke waqt online UPI se advance mein hota hai." },
   "cancel-asks-first": { text: "Aapki kal 10 baje ki booking hai. Kya aap pakka ise cancel karna chahte hain?" },
   "cancel-confirmed": { text: "Aapki booking cancel ho gayi hai. Koi aur time book karna ho to bataiye." },
   "reschedule": { text: "Parso ke slots neeche hain, naya time tap kijiye.", slots: 4 },

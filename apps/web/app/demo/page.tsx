@@ -9,7 +9,7 @@ import { formatRupees } from "@frontdesk/core";
 
 export const metadata: Metadata = {
   title: "Live demo",
-  description: "Chat with FrontDesk AI on a demo clinic website.",
+  description: "Chat with Swagat AI on a demo clinic website.",
 };
 
 /**
@@ -24,12 +24,12 @@ export default function DemoPage() {
       <div className="bg-ink text-white">
         <div className="container-page flex flex-col gap-3 py-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" aria-label="FrontDesk AI home">
+            <Link href="/" aria-label="Swagat AI home">
               <LogoMark className="size-7" />
             </Link>
             <p className="text-sm">
               <span className="font-semibold">Live demo.</span>{" "}
-              <span className="text-white/70">This is a made-up clinic. The chat bubble is FrontDesk AI. Try:</span>
+              <span className="text-white/70">This is a made-up clinic. The chat bubble is Swagat AI. Try:</span>
             </p>
           </div>
           <TryAsking />

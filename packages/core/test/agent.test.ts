@@ -101,6 +101,18 @@ describe("runAgent", () => {
     expect(buildSystemPrompt(clinic)).toBe(buildSystemPrompt(structuredClone(clinic)));
   });
 
+  it("states the payment policy so 'advance or after?' needs no handoff", () => {
+    expect(buildSystemPrompt({ ...clinic, paymentPolicy: "advance_online" })).toMatch(/Payment:\nPaid services: the full price is paid online in advance/);
+    expect(buildSystemPrompt({ ...clinic, paymentPolicy: "pay_at_visit" })).toMatch(/Payment:\nNo advance payment\. .*at or after the appointment/);
+    expect(buildSystemPrompt(clinic)).toMatch(/Payment:\nNot provided\./);
+  });
+
+  it("keeps clinic-only rules out of other businesses", () => {
+    const agency = { ...clinic, vertical: "other" as const, name: "Digital Marketing" };
+    expect(buildSystemPrompt(agency)).not.toMatch(/doctor|diagnos|medicine|108|clinic/i);
+    expect(buildSystemPrompt(clinic)).toMatch(/diagnose/);
+  });
+
   it("merges consecutive same-role messages and drops a leading assistant turn", async () => {
     const { client, requests } = fakeClient([{ text: "ok" }]);
     await collect(

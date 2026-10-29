@@ -45,7 +45,7 @@ const isProviderBusy = (r: Reply) => Boolean(r.error && /bahut log|try kijiye|ra
 async function main() {
   await preflight();
   const total = cases.length * repeat;
-  console.log(`\nFrontDesk evals: ${cases.length} cases x ${repeat} against ${url} (business ${businessId})`);
+  console.log(`\nSwagat AI evals: ${cases.length} cases x ${repeat} against ${url} (business ${businessId})`);
   console.log(`Gap between messages: ${gapMs / 1000}s. Ctrl+C to stop.\n`);
 
   const results: CaseResult[] = [];
@@ -171,7 +171,7 @@ function buildReport(results: CaseResult[]) {
       return `### ${r.c.id}${r.c.critical ? " (critical)" : ""}\nCustomer: ${asked}\n${detail}`;
     });
 
-  const markdown = `# FrontDesk eval report
+  const markdown = `# Swagat AI eval report
 
 ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} IST · ${url} · business \`${businessId}\` · ${repeat} run(s) per case
 

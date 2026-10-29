@@ -50,7 +50,7 @@ export default async function OverviewPage({ searchParams }: { searchParams: Pro
       />
 
       {welcome && (
-        <div className="flex items-start gap-3 rounded-2xl bg-brand-800 p-5 text-white">
+        <div className="flex items-start gap-3 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-900 p-5 text-white shadow-glow">
           <PartyPopper className="mt-0.5 size-5 shrink-0 text-brand-200" />
           <div>
             <p className="font-semibold">{ctx.business?.name} is set up.</p>
@@ -87,8 +87,8 @@ export default async function OverviewPage({ searchParams }: { searchParams: Pro
             description="Resolved by AI vs handed to your team"
             action={
               <div className="flex items-center gap-4 text-xs text-slate-500">
-                <Legend className="bg-brand-600" label="AI resolved" />
-                <Legend className="bg-amber-300" label="Handed to you" />
+                <Legend className="bg-brand-500" label="AI resolved" />
+                <Legend className="bg-saffron-300" label="Handed to you" />
               </div>
             }
           />
@@ -215,15 +215,16 @@ function Stat({
   highlight?: boolean;
 }) {
   return (
-    <Card className={highlight ? "bg-brand-800 text-white ring-brand-900" : ""}>
-      <div className="p-5">
+    <Card className={highlight ? "relative overflow-hidden bg-gradient-to-br from-brand-600 via-brand-800 to-brand-950 text-white shadow-glow ring-brand-900" : "transition hover:-translate-y-0.5 hover:shadow-lift"}>
+      {highlight && <div aria-hidden className="absolute -top-10 -right-10 size-32 rounded-full bg-saffron-400/30 blur-2xl" />}
+      <div className="relative p-5">
         <div className="flex items-center justify-between">
           <p className={highlight ? "text-sm font-medium text-white/75" : "text-sm font-medium text-slate-500"}>{label}</p>
           <span
             className={
               highlight
-                ? "grid size-8 place-items-center rounded-lg bg-white/10"
-                : "grid size-8 place-items-center rounded-lg bg-brand-50 text-brand-700"
+                ? "grid size-9 place-items-center rounded-xl bg-white/15 ring-1 ring-white/20"
+                : "grid size-9 place-items-center rounded-xl bg-gradient-to-b from-brand-50 to-brand-100 text-brand-700 ring-1 ring-brand-200/60"
             }
           >
             <Icon className="size-4" />
@@ -255,8 +256,8 @@ function WeeklyBars({ weekly }: { weekly: DayStats[] }) {
                 style={{ height: `${(d.conversations / max) * 100}%` }}
                 title={`${d.day}: ${d.aiResolved} AI resolved, ${handed} handed to you`}
               >
-                <div className="bg-amber-300" style={{ flex: handed }} />
-                <div className="mt-0.5 bg-brand-600 transition group-hover:bg-brand-700" style={{ flex: d.aiResolved }} />
+                <div className="bg-gradient-to-t from-saffron-400 to-saffron-300" style={{ flex: handed }} />
+                <div className="mt-0.5 bg-gradient-to-t from-brand-700 to-brand-400 transition group-hover:from-brand-800 group-hover:to-brand-500" style={{ flex: d.aiResolved }} />
               </div>
               <span className="text-xs text-slate-500">{d.day}</span>
             </div>
@@ -277,7 +278,7 @@ function Legend({ className, label }: { className: string; label: string }) {
 
 function Avatar({ name }: { name: string }) {
   return (
-    <span className="grid size-9 shrink-0 place-items-center rounded-full bg-slate-100 text-xs font-bold text-slate-600">
+    <span className="grid size-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand-100 to-saffron-100 text-xs font-bold text-brand-800">
       {initials(name)}
     </span>
   );

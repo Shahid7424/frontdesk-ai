@@ -23,9 +23,9 @@ export function DashboardShell({ children, ...props }: ShellProps & { children: 
   useEffect(() => setMobileOpen(false), [pathname]);
 
   return (
-    <div className="min-h-dvh bg-canvas lg:grid lg:grid-cols-[256px_1fr]">
+    <div className="min-h-dvh bg-canvas bg-[radial-gradient(60%_40%_at_70%_0%,var(--color-brand-100),transparent)] bg-no-repeat lg:grid lg:grid-cols-[256px_1fr]">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh flex-col border-r border-black/[0.06] bg-white/60 lg:flex">
+      <aside className="sticky top-0 hidden h-dvh flex-col border-r border-black/[0.06] bg-white/75 backdrop-blur-xl lg:flex">
         <Sidebar {...props} />
       </aside>
 
@@ -78,7 +78,7 @@ function Sidebar({ mode, business, userLabel, needsYou }: ShellProps) {
 
       <div className="px-3">
         <button className="flex w-full items-center gap-3 rounded-xl p-2 text-left ring-1 ring-black/[0.07] transition hover:bg-black/[0.03]">
-          <span className="grid size-9 place-items-center rounded-lg bg-brand-100 text-sm font-bold text-brand-800">
+          <span className="grid size-9 place-items-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-800 text-sm font-bold text-white shadow-sm shadow-brand-900/20">
             {initials(business.name)}
           </span>
           <span className="min-w-0 flex-1">
@@ -100,7 +100,7 @@ function Sidebar({ mode, business, userLabel, needsYou }: ShellProps) {
               aria-current={active ? "page" : undefined}
               className={cn(
                 "group flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors",
-                active ? "bg-brand-700 text-white shadow-sm shadow-brand-900/20" : "text-ink/65 hover:bg-black/[0.04] hover:text-ink",
+                active ? "bg-gradient-to-r from-brand-600 to-brand-800 text-white shadow-md shadow-brand-900/25" : "text-ink/65 hover:bg-black/[0.04] hover:text-ink",
               )}
             >
               <Icon className={cn("size-[18px]", active ? "text-white" : "text-ink/45 group-hover:text-ink/70")} />
@@ -120,7 +120,7 @@ function Sidebar({ mode, business, userLabel, needsYou }: ShellProps) {
         })}
       </nav>
 
-      <div className="m-3 rounded-2xl bg-gradient-to-br from-brand-50 to-white p-4 ring-1 ring-brand-100">
+      <div className="relative m-3 overflow-hidden rounded-2xl bg-gradient-to-br from-brand-50 via-white to-saffron-100/60 p-4 ring-1 ring-brand-100">
         <div className="flex items-center gap-2">
           <span className="relative flex size-2.5">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-60" />
@@ -128,7 +128,7 @@ function Sidebar({ mode, business, userLabel, needsYou }: ShellProps) {
           </span>
           <p className="text-sm font-semibold">AI receptionist is live</p>
         </div>
-        <p className="mt-1 text-xs leading-relaxed text-slate-500">Answering on WhatsApp and your website.</p>
+        <p className="mt-1 text-xs leading-relaxed text-slate-500">Answering customers on your website, 24×7.</p>
         <Link href="/demo" target="_blank" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:underline">
           Test it as a customer <ExternalLink className="size-3" />
         </Link>

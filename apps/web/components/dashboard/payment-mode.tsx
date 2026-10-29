@@ -15,8 +15,8 @@ const OPTIONS: Array<{ value: Mode; title: string; body: string }> = [
   },
   {
     value: "at_clinic",
-    title: "Pay at the clinic",
-    body: "Every booking is confirmed straight away. The customer pays at the visit.",
+    title: "Pay at the visit",
+    body: "Every booking is confirmed straight away. The customer pays you directly at or after the appointment.",
   },
 ];
 

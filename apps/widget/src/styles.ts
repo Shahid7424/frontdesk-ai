@@ -3,15 +3,12 @@
 export const styles = /* css */ `
 :host {
   all: initial;
-  --fd-accent: #0f766e;
-  --fd-accent-soft: color-mix(in srgb, var(--fd-accent) 10%, white);
-  --fd-accent-ink: color-mix(in srgb, var(--fd-accent) 70%, black);
+  --fd-accent: #5a2bd4;
   --fd-ink: #0f172a;
   --fd-muted: #64748b;
   --fd-line: #e2e8f0;
   --fd-surface: #ffffff;
-  --fd-canvas: #f8fafc;
-  --fd-radius: 18px;
+  --fd-radius: 22px;
   --fd-shadow: 0 24px 60px -12px rgba(15, 23, 42, 0.28), 0 8px 20px -8px rgba(15, 23, 42, 0.18);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
   color: var(--fd-ink);
@@ -24,7 +21,15 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   outline-offset: 2px;
 }
 
+/* Shades derive from the business's accent, which is set inline on .root,
+   so they must be declared here and not on :host. */
 .root {
+  --fd-accent-soft: color-mix(in srgb, var(--fd-accent) 10%, white);
+  --fd-accent-ink: color-mix(in srgb, var(--fd-accent) 70%, black);
+  --fd-accent-deep: color-mix(in srgb, var(--fd-accent) 72%, #0b0820);
+  --fd-accent-bright: color-mix(in srgb, var(--fd-accent) 78%, white);
+  --fd-gradient: linear-gradient(135deg, var(--fd-accent-bright) 0%, var(--fd-accent) 45%, var(--fd-accent-deep) 100%);
+  --fd-canvas: color-mix(in srgb, var(--fd-accent) 3%, #f8fafc);
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -45,12 +50,12 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   padding: 0 20px 0 8px;
   border: 0;
   border-radius: 999px;
-  background: var(--fd-accent);
+  background: var(--fd-gradient);
   color: white;
-  box-shadow: var(--fd-shadow);
+  box-shadow: var(--fd-shadow), 0 10px 30px -8px color-mix(in srgb, var(--fd-accent) 60%, transparent);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.launcher:hover { transform: translateY(-2px); }
+.launcher:hover { transform: translateY(-2px) scale(1.02); }
 .launcher .avatar { width: 40px; height: 40px; background: rgba(255,255,255,0.18); }
 .launcher-label { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.15; }
 .launcher-label strong { font-size: 14px; font-weight: 600; }
@@ -90,6 +95,7 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   background: var(--fd-surface);
   border-radius: var(--fd-radius);
   box-shadow: var(--fd-shadow);
+  border: 1px solid rgba(15, 23, 42, 0.06);
   overflow: hidden;
   transform-origin: bottom right;
   animation: fd-open 0.28s cubic-bezier(.2,.9,.3,1);
@@ -100,10 +106,11 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 14px 16px 16px;
+  padding: 18px 14px 18px 16px;
   background:
-    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--fd-accent) 70%, white) 0%, transparent 55%),
-    var(--fd-accent);
+    radial-gradient(60% 120% at 100% 0%, rgba(255, 196, 107, 0.28) 0%, transparent 60%),
+    radial-gradient(120% 140% at 0% 0%, color-mix(in srgb, var(--fd-accent) 60%, white) 0%, transparent 55%),
+    var(--fd-gradient);
   color: white;
 }
 .avatar {
@@ -115,6 +122,7 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   height: 42px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
   font-weight: 700;
   font-size: 15px;
   color: white;
@@ -197,8 +205,10 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   border: 1px solid var(--fd-line);
   border-top-left-radius: 6px;
 }
+.row.assistant .bubble { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04); }
 .row.user .bubble {
-  background: var(--fd-accent);
+  background: var(--fd-gradient);
+  box-shadow: 0 4px 12px -4px color-mix(in srgb, var(--fd-accent) 50%, transparent);
   color: white;
   border-top-right-radius: 6px;
 }
@@ -256,7 +266,7 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
 .slot:hover:not(:disabled) { background: var(--fd-accent-soft); border-color: var(--fd-accent); }
 .slot:active:not(:disabled) { transform: scale(0.97); }
 .slot:disabled { cursor: default; opacity: 0.45; }
-.slot.chosen { opacity: 1; background: var(--fd-accent); border-color: var(--fd-accent); color: white; }
+.slot.chosen { opacity: 1; background: var(--fd-gradient); border-color: var(--fd-accent); color: white; }
 
 /* Name + phone before a slot is held */
 .details { width: 100%; display: flex; flex-direction: column; gap: 6px; background: var(--fd-surface); border: 1px solid var(--fd-line); border-radius: 16px; padding: 12px; }
@@ -314,7 +324,7 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   border-radius: 999px;
   transition: border-color 0.15s, color 0.15s;
 }
-.chip:hover { border-color: var(--fd-accent); color: var(--fd-accent-ink); }
+.chip:hover { border-color: var(--fd-accent); color: var(--fd-accent-ink); background: var(--fd-accent-soft); }
 
 /* Composer */
 .composer {
@@ -344,7 +354,8 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   width: 44px; height: 44px; flex: none;
   display: grid; place-items: center;
   border: 0; border-radius: 14px;
-  background: var(--fd-accent); color: white;
+  background: var(--fd-gradient); color: white;
+  box-shadow: 0 6px 14px -6px color-mix(in srgb, var(--fd-accent) 70%, transparent);
   transition: opacity 0.15s, transform 0.1s;
 }
 .send:disabled { opacity: 0.4; cursor: default; }
@@ -358,7 +369,16 @@ button:focus-visible, textarea:focus-visible, a:focus-visible {
   display: flex; justify-content: space-between; gap: 10px;
 }
 .footer a { color: inherit; }
-.brand { white-space: nowrap; font-weight: 600; }
+.brand {
+  display: inline-flex; align-items: center; gap: 5px;
+  white-space: nowrap; color: var(--fd-muted); text-decoration: none;
+}
+.brand b { font-weight: 700; color: #5a2bd4; }
+.brand:hover b { text-decoration: underline; }
+.brand-mark {
+  width: 12px; height: 12px; border-radius: 4px;
+  background: linear-gradient(135deg, #7c55f8, #5a2bd4 55%, #230d5c);
+}
 
 @keyframes fd-open { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: none; } }
 @keyframes fd-pop { from { opacity: 0; transform: translateY(8px) scale(0.95); } to { opacity: 1; transform: none; } }

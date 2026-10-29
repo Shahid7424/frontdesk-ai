@@ -5,7 +5,7 @@ import type { Json } from "@frontdesk/db";
 import { after } from "next/server";
 import { queueAlert } from "@/lib/alerts";
 import { searchKnowledge } from "@/lib/knowledge/search";
-import { cancelChatBooking, findChatBooking, holdSlot, moveBooking, type PaymentMode } from "./booking";
+import { cancelChatBooking, findChatBooking, holdSlot, moveBooking, onlinePaymentsAvailable, type PaymentMode } from "./booking";
 import { getBusy } from "./knowledge";
 import { friendlyError, isAgentConfigured, startAgent } from "./provider";
 import { getOrCreateConversation, loadHistory, saveCustomer, saveMessage, staffRepliedLast, touchConversation } from "./store";
@@ -48,9 +48,9 @@ const COPY = {
     hi: (who: string, when: string, what: string) => `हो गया! आपकी बुकिंग अब ${when} पर है, ${who} के साथ (${what})।`,
   },
   notMovable: {
-    hinglish: "Ye booking ab badli nahi ja sakti. Clinic ki team aapki madad karegi, ya naya slot book kar lijiye.",
-    en: "This booking can't be changed any more. The clinic's team can help, or you can book a new slot.",
-    hi: "यह बुकिंग अब बदली नहीं जा सकती। क्लिनिक की टीम मदद करेगी, या नया स्लॉट बुक कर लीजिए।",
+    hinglish: "Ye booking ab badli nahi ja sakti. Team aapki madad karegi, ya naya slot book kar lijiye.",
+    en: "This booking can't be changed any more. The team can help, or you can book a new slot.",
+    hi: "यह बुकिंग अब बदली नहीं जा सकती। टीम मदद करेगी, या नया स्लॉट बुक कर लीजिए।",
   },
   confirmed: {
     hinglish: (who: string, when: string, what: string) => `Booking confirm! ${who} ke saath ${when} (${what}). Milte hain!`,
@@ -121,7 +121,8 @@ export async function* runLiveChat(
   }
 
   const agent = startAgent({
-    business,
+    // What holdSlot will actually do: an advance only when online payments can run.
+    business: { ...business, paymentPolicy: business.paymentMode === "online" && onlinePaymentsAvailable ? "advance_online" : "pay_at_visit" },
     knowledge,
     history: fullHistory,
     now,

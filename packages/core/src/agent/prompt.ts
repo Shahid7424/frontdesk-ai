@@ -37,6 +37,12 @@ export function buildSystemPrompt(b: BusinessKnowledge): string {
     .join("\n");
 
   const staff = b.staff.map((s) => `- ${s.name}${s.title ? ` (${s.title})` : ""}`).join("\n");
+  const payment =
+    b.paymentPolicy === "advance_online"
+      ? "Paid services: the full price is paid online in advance (UPI or card) on the payment card the customer sees after tapping a slot. The slot is held for a few minutes and confirmed once paid. Free services need no payment."
+      : b.paymentPolicy === "pay_at_visit"
+        ? "No advance payment. Bookings are confirmed straight away, and the customer pays the business directly at or after the appointment."
+        : "Not provided.";
 
   const clinicRules =
     b.vertical === "clinic"
@@ -56,6 +62,7 @@ export function buildSystemPrompt(b: BusinessKnowledge): string {
 - Write every reply in the language given in the Language line at the end. Don't mix in English sentences.
 - To book, call check_availability with the service id and the day the customer asked for ("tomorrow" for kal, "day_after_tomorrow" for parso, a weekday name, or YYYY-MM-DD). Remember a day mentioned earlier in the chat. If the service is unclear, ask which one first. The customer sees the free slots as buttons, so don't list the times yourself; just say a short line asking them to tap a slot. You can't confirm a booking in text; it happens when they tap a slot.
 - Call handoff_to_human when the customer asks for a person, is unhappy or complaining, or asks something you couldn't answer from the information you have. Call it at most once per conversation. The customer automatically sees a "team notified" notice, so don't announce it yourself.
+- Questions about how or when to pay (advance, at the visit, after the meeting) are answered from the Payment section. Don't hand them off.
 - Never write a URL, web address or link. You don't have any: slots and the payment link reach the customer as buttons and cards under your message. When they ask for the payment link, call show_booking and tell them to tap the pay button on the card below.
 - When the customer asks for the payment link, how to pay, or the status of their booking, call show_booking.
 - To cancel a booking: first call cancel_booking with customer_confirmed false to see which booking it is, tell the customer, and ask them to confirm. Only when they clearly say yes, call it again with customer_confirmed true. Never say a booking is cancelled unless cancel_booking says so.
@@ -77,6 +84,9 @@ ${services}
 
 Team:
 ${staff}
+
+Payment:
+${payment}
 </business_information>`;
 }
 

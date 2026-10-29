@@ -1,4 +1,4 @@
-# FrontDesk AI: VS Code setup (step by step)
+# Swagat AI: VS Code setup (step by step)
 
 Do kadam hain: **Part A** se app demo mode mein chal jayegi (10 minute). **Part B** optional hai: real login aur database ke liye Supabase (15 minute).
 
@@ -466,7 +466,7 @@ Test:
 
 Key nahi daali to email nahi jayega, sirf terminal mein `[alerts] RESEND_API_KEY not set, would email ...` dikhega. Ye normal hai.
 
-Apne domain se email bhejna (jaise alerts@aapkadomain.com) baad mein: Resend → Domains → domain verify karo, phir `ALERTS_FROM="FrontDesk AI <alerts@aapkadomain.com>"` set karo. Tab kisi bhi email par alert ja sakta hai.
+Apne domain se email bhejna (jaise alerts@aapkadomain.com) baad mein: Resend → Domains → domain verify karo, phir `ALERTS_FROM="Swagat AI <alerts@aapkadomain.com>"` set karo. Tab kisi bhi email par alert ja sakta hai.
 
 ### Error monitoring (Sentry, free)
 1. https://sentry.io par signup karo, **Create Project** → platform **Next.js** chuno.
@@ -507,7 +507,7 @@ Poori report `SECURITY.md` mein hai. Short mein:
 | Document hamesha "Processing" par atka hai | `INNGEST_DEV=1` set hai par `npx inngest-cli@latest dev` nahi chal raha. Ya to wo chalao, ya `.env.local` se `INNGEST_DEV` hatao aur restart karke ↻ dabao. |
 | "· keyword search" likha hai | `GEMINI_API_KEY` nahi hai, ya key daalne ke baad restart nahi kiya. Restart karke row par ↻ dabao. |
 | Jawab mein source chip nahi aata | Sawaal business profile (timings, services) se answer hua: uska chip nahi aata, sirf documents ka aata hai. Agar document se tha, to Groq ka free model kabhi kabhi citation number chhod deta hai; Claude par ye zyada reliable hai. |
-| 5500 wali site par bubble nahi aata | `npm run dev` chal raha hai? URL mein `?business=` sahi slug hai? Allowed websites mein list hai to `localhost` add karo. Browser console (F12) mein `[FrontDesk]` wala message dekho. |
+| 5500 wali site par bubble nahi aata | `npm run dev` chal raha hai? URL mein `?business=` sahi slug hai? Allowed websites mein list hai to `localhost` add karo. Browser console (F12) mein `[Swagat AI]` wala message dekho. |
 | Widget mein "bahut jaldi messages" | Rate limit laga hai. 1 minute ruko, ya testing ke liye `npm run dev` restart karo (local limits memory mein hain). |
 | `npm run eval` bolta hai "App mock mode mein hai" | `.env.local` mein `GROQ_API_KEY` ya Supabase keys missing hain, ya dev server restart nahi kiya. |
 | Eval mein bahut saare "model provider busy" | Free Groq ki per-minute ya daily limit khatam. `--gap 30` se chalao, ya kal try karo, ya paid key lagao. |

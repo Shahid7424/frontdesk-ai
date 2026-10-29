@@ -11,6 +11,7 @@ const QUICK_REPLIES: Record<string, string[]> = {
   clinic: ["Consultation fees kitni hai?", "Kal appointment chahiye", "Clinic timings kya hain?"],
   salon: ["Haircut ka rate kya hai?", "Aaj shaam ka slot milega?", "Aap kahan par ho?"],
   coaching: ["Fees structure batao", "Demo class book karni hai", "Batch timings kya hain?"],
+  other: ["Aap kya services dete ho?", "Charges kitne hain?", "Meeting book karni hai"],
 };
 
 export async function GET(request: Request) {
@@ -56,7 +57,7 @@ async function liveConfig(slug: string): Promise<{ config: WidgetConfig; domains
     tagline: "AI receptionist · replies instantly",
     greeting: `Namaste! 👋 Main ${b.name} ki AI receptionist hoon. Timings, fees ya appointment, kuch bhi puchiye.`,
     accentColor: b.accent_color,
-    quickReplies: QUICK_REPLIES[b.vertical] ?? QUICK_REPLIES.clinic!,
+    quickReplies: QUICK_REPLIES[b.vertical] ?? QUICK_REPLIES.other!,
     consentText: "Chat karke aap apna message aur number is business ko use karne ki permission dete hain.",
     privacyUrl: "/privacy",
   };

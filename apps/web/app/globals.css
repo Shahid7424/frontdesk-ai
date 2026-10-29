@@ -2,37 +2,46 @@
 
 @theme {
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
 
-  /* Brand: deep teal, calm and "health-safe", distinct from WhatsApp green. */
-  --color-brand-50: #effcf9;
-  --color-brand-100: #c9f5ec;
-  --color-brand-200: #94e9da;
-  --color-brand-300: #5ad5c3;
-  --color-brand-400: #2cb9a8;
-  --color-brand-500: #149d8f;
-  --color-brand-600: #0e7e74;
-  --color-brand-700: #0f655e;
-  --color-brand-800: #11514c;
-  --color-brand-900: #124440;
-  --color-brand-950: #032826;
+  /* Brand: royal violet. Premium and warm, distinct from WhatsApp green. */
+  --color-brand-50: #f5f3ff;
+  --color-brand-100: #ece8ff;
+  --color-brand-200: #dad2ff;
+  --color-brand-300: #bcaeff;
+  --color-brand-400: #9a7fff;
+  --color-brand-500: #7c55f8;
+  --color-brand-600: #6a3aed;
+  --color-brand-700: #5a2bd4;
+  --color-brand-800: #4c1fb8;
+  --color-brand-900: #3c1a8f;
+  --color-brand-950: #230d5c;
 
   /* Warm accent, used sparingly for highlights. */
   --color-saffron-100: #fff1d6;
   --color-saffron-300: #ffc76b;
+  --color-saffron-400: #fbb13c;
   --color-saffron-500: #f59e0b;
+  --color-saffron-600: #e07b06;
 
-  --color-canvas: #f7f7f3;
-  --color-ink: #0b1324;
+  --color-canvas: #f8f7fc;
+  --color-ink: #0e0b1f;
 
   --shadow-soft: 0 1px 2px rgb(11 19 36 / 0.04), 0 8px 24px -12px rgb(11 19 36 / 0.12);
   --shadow-lift: 0 2px 4px rgb(11 19 36 / 0.04), 0 24px 48px -20px rgb(11 19 36 / 0.25);
+  --shadow-glow: 0 10px 40px -10px rgb(106 58 237 / 0.55);
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-marquee: marquee 40s linear infinite;
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
   @keyframes fade-up {
     from { opacity: 0; transform: translateY(12px); }
@@ -54,6 +63,23 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-500;
   }
+}
+
+/* Violet-to-marigold text, for one or two words in a headline. */
+@utility text-gradient {
+  background-image: linear-gradient(100deg, var(--color-brand-700) 10%, var(--color-brand-500) 50%, var(--color-saffron-600) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Faint square grid, faded at the edges. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(14 11 31 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(14 11 31 / 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 75%);
 }
 
 @utility container-page {

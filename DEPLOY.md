@@ -1,4 +1,4 @@
-# FrontDesk AI ko live karna (Vercel)
+# Swagat AI ko live karna (Vercel)
 
 Ye guide kal ke deploy ke liye hai. Poora kaam lagbhag 45 minute ka hai. Sab free plans par chalta hai.
 
@@ -17,7 +17,7 @@ Shuru karne se pehle ye ready rakho:
 ```bash
 git init
 git add .
-git commit -m "FrontDesk AI"
+git commit -m "Swagat AI"
 git branch -M main
 git remote add origin https://github.com/<aapka-username>/frontdesk-ai.git
 git push -u origin main
@@ -35,7 +35,7 @@ git push -u origin main
 4. Framework apne aap **Next.js** aa jayega. Build command `apps/web/vercel.json` se aati hai, isliye use mat chhedo.
 5. **Environment Variables** khol ke neeche wali list daalo (Step 3). Phir **Deploy** dabao.
 
-Pehla deploy 3-4 minute leta hai. Ant mein aapko `https://frontdesk-ai-xxxx.vercel.app` jaisa URL milega.
+Pehla deploy 3-4 minute leta hai. Ant mein aapko `https://swagat-ai.vercel.app` jaisa URL milega.
 
 ---
 
@@ -52,7 +52,7 @@ Vercel → Project → **Settings → Environment Variables** mein ye daalo. Val
 | `SUPABASE_SERVICE_ROLE_KEY` | wahi (secret hai, kisi ko mat dikhana) |
 | `LLM_PROVIDER` | `groq` |
 | `GROQ_API_KEY` | console.groq.com |
-| `NEXT_PUBLIC_APP_URL` | aapka Vercel URL, jaise `https://frontdesk-ai-xxxx.vercel.app` (aakhir mein `/` nahi lagana) |
+| `NEXT_PUBLIC_APP_URL` | aapka Vercel URL, jaise `https://swagat-ai.vercel.app` (aakhir mein `/` nahi lagana) |
 
 **Live ke liye strongly recommended:**
 
@@ -72,8 +72,8 @@ Vercel → Project → **Settings → Environment Variables** mein ye daalo. Val
 ## Step 4: Supabase mein live URL allow karo (login ke liye)
 
 Supabase → **Authentication → URL Configuration**:
-- **Site URL**: `https://frontdesk-ai-xxxx.vercel.app`
-- **Redirect URLs** mein add karo: `https://frontdesk-ai-xxxx.vercel.app/auth/callback`
+- **Site URL**: `https://swagat-ai.vercel.app`
+- **Redirect URLs** mein add karo: `https://swagat-ai.vercel.app/auth/callback`
 - `http://localhost:3000/auth/callback` bhi rehne do, taaki local bhi chalta rahe.
 
 Ye nahi kiya to magic link wapas localhost par le jayega.
@@ -92,7 +92,7 @@ Live URL par ek-ek karke ye check karo:
 7. Apne computer se eval chalao, live site par:
 
 ```bash
-npm run eval -- --url https://frontdesk-ai-xxxx.vercel.app --business shahid-q9en
+npm run eval -- --url https://swagat-ai.vercel.app --business shahid-q9en
 ```
 
 ---
@@ -102,7 +102,7 @@ npm run eval -- --url https://frontdesk-ai-xxxx.vercel.app --business shahid-q9e
 Pehle **test keys** ke saath live site par try karo:
 1. Vercel env mein `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` aur `RAZORPAY_WEBHOOK_SECRET` daalo, phir redeploy karo.
 2. Razorpay → Settings → **Webhooks** → Add:
-   - URL: `https://frontdesk-ai-xxxx.vercel.app/api/razorpay/webhook`
+   - URL: `https://swagat-ai.vercel.app/api/razorpay/webhook`
    - Events: `payment_link.paid`, `payment_link.expired`, `payment_link.cancelled`
    - Secret: wahi jo `RAZORPAY_WEBHOOK_SECRET` mein daala
 3. Booking karo, `success@razorpay` UPI se pay karo. Booking confirm ho jani chahiye.
@@ -120,7 +120,7 @@ Vercel → Project → **Integrations** → **Inngest** → Install. Ye `INNGEST
 
 ## Step 8 (optional): Apna domain
 
-Vercel → Project → **Settings → Domains** → domain add karo (jaise `app.frontdeskai.in`) → jo DNS record Vercel bataye wo apne domain provider par daalo.
+Vercel → Project → **Settings → Domains** → domain add karo (jaise `app.swagatai.in`) → jo DNS record Vercel bataye wo apne domain provider par daalo.
 Uske baad `NEXT_PUBLIC_APP_URL`, Supabase ke URLs aur Razorpay webhook, teeno ko naye domain par update karo, phir redeploy.
 
 ---

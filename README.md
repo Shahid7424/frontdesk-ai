@@ -1,6 +1,6 @@
-# FrontDesk AI
+# Swagat AI
 
-An AI receptionist for Indian clinics, salons and coaching centres. Customers ask questions in Hinglish on WhatsApp or a website chat; FrontDesk answers from the business's own data (with sources), books slots without double-booking, and sends UPI payment links. The owner watches everything from a dashboard and can take over any chat.
+Swagat AI is an AI receptionist for Indian businesses: clinics, agencies, salons, coaching centres. Customers ask questions in Hinglish in a website chat; Swagat AI answers from the business's own data (with sources), books slots without double-booking, and sends UPI payment links. The owner watches everything from a dashboard and can take over any chat.
 
 **Status:** Day 13, ready to deploy. Frontend, Supabase (schema, RLS, magic-link auth, onboarding), the AI chat, the knowledge base with cited answers, the embeddable widget, an end-to-end eval suite, the owner dashboard on live data (inbox with replies to the customer, bookings, overview) and booking advances through Razorpay Payment Links are built, the owner edits profile, team, services, prices and hours from Settings, customers cancel or move bookings in the chat, owners get email alerts, errors reach Sentry, and a security pass is done (SECURITY.md). DEPLOY.md has the Vercel steps. The model is pluggable: a free open model on Groq by default, Claude Haiku 5.5 for paying clients. It answers from each business's own data, checks real availability, holds slots in Postgres, and every reply's tokens and cost are saved and traced in Langfuse.
 
