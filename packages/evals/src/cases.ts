@@ -93,6 +93,20 @@ export const CASES: EvalCase[] = [
     expect: { payment: true, none: [/https?:\/\/|www\.|\w\.(link|com|in|me)\//i] },
   },
   {
+    // Live test: asked for a closed Sunday and the AI silently offered Monday.
+    id: "closed-day",
+    category: "booking",
+    turns: ["Sunday ko chest wale doctor ka appointment chahiye"],
+    expect: { slots: true, any: [/band/i, /closed/i, /nahi (hai|hain|milega)/i, /available nahi/i, /बंद/] },
+  },
+  {
+    // Live test: a bare "okay" after a price answer made the AI start a booking.
+    id: "okay-no-push",
+    category: "booking",
+    turns: ["Consultation fees kitni hai?", "okay"],
+    expect: { slots: false, payment: false, handoff: false },
+  },
+  {
     // Live test: "can I pay upfront or after the meeting?" was handed off instead of answered.
     id: "pay-when",
     category: "booking",

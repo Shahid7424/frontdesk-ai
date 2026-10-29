@@ -174,15 +174,26 @@ async function offerSlots(
             date_label: dayLabel(day),
             requested_date: requested,
             shown_to_customer: shown.map((s) => `${s.label} with ${s.staffName}`),
+            ...(day === requested ? {} : { requested_day_status: closedOn(ctx.business, service, requested) ? "closed" : "fully_booked" }),
             note:
               day === requested
                 ? `The customer now sees these ${dayLabel(day)} slots as buttons.`
-                : `${dayLabel(requested)} is full or closed. These ${dayLabel(day)} slots are shown as buttons; tell the customer the date.`,
+                : `Nothing could be booked on ${dayLabel(requested)}, the day they asked for: it is ${closedOn(ctx.business, service, requested) ? "closed" : "fully booked"}. Say that plainly first, then that the nearest free day is ${dayLabel(day)} and they can tap a time there.`,
           }),
         };
       }
     }
     return { events: [], content: JSON.stringify({ date: requested, slots: [], note: "No free slots in the next 7 days." }) };
+}
+
+/** Whether nobody who offers this service works on that day at all (as opposed to being fully booked). */
+function closedOn(business: BusinessKnowledge, service: BusinessKnowledge["services"][number], day: string): boolean {
+  // Noon IST is the same calendar day in UTC, so getUTCDay() is the IST weekday.
+  const weekday = new Date(`${day}T12:00:00+05:30`).getUTCDay();
+  return !service.staffIds.some((staffId) => {
+    const own = business.hours.filter((h) => h.weekday === weekday && h.staffId === staffId);
+    return (own.length ? own : business.hours.filter((h) => h.weekday === weekday && h.staffId === null)).length > 0;
+  });
 }
 
 /**
